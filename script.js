@@ -1,5 +1,5 @@
 // Apps Scriptをデプロイした後、「ウェブアプリのURL（/execで終わるURL）」に置き換えてください。
-const GAS_ENDPOINT_URL = "ここにApps ScriptのデプロイURLを入れる";
+const GAS_ENDPOINT_URL = "https://script.google.com/a/macros/m.chukyo-u.ac.jp/s/AKfycbzJy6tbzPKxjqFN7caHWHaa6ISvAu8J10NgB1hpbNTpGQxaZlWXmxu-fYaewv4gpLzv/exec";
 
 // 集計機能の安全設定（企業マップとは独立して動作します）。
 const SURVEY_CACHE_KEY = "greenActionMapSurveyStatsV1";
@@ -136,11 +136,11 @@ function initializeLiveSurvey() {
   let isSubmitting = false;
   let latestStats = null;
 
-  const endpointIsConfigured = () => (
-    typeof GAS_ENDPOINT_URL === 'string' &&
-    GAS_ENDPOINT_URL.startsWith('https://script.google.com/macros/s/') &&
-    GAS_ENDPOINT_URL.endsWith('/exec')
-  );
+const endpointIsConfigured = () => (
+  typeof GAS_ENDPOINT_URL === 'string' &&
+  GAS_ENDPOINT_URL.includes('script.google.com') &&
+  GAS_ENDPOINT_URL.endsWith('/exec')
+);
 
   const setSurveyMessage = (message, isError = false) => {
     surveyMessage.textContent = message;
