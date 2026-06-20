@@ -19,52 +19,72 @@
     <a class="header-link" href="#about">このサイトについて</a>
   </header>
 
+  <a class="survey-button" href="https://forms.gle/ptjbcPwpiAbzH7Kx7" target="_blank" rel="noopener noreferrer" aria-label="30秒アンケートを新しいタブで開く">
+    <span class="survey-kicker">認知度調査に協力</span>
+    <span class="survey-main">30秒アンケート <b aria-hidden="true">↗</b></span>
+  </a>
+
   <main id="top">
-    <section class="hero">
-      <div class="hero-copy">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
         <p class="eyebrow">GREEN POWER CERTIFICATE</p>
-        <h1>環境への一歩を、<br><span>地図で見つけよう。</span></h1>
-        <p class="hero-description">愛知県周辺でグリーン電力証書を活用する企業の取り組みを、わかりやすく紹介するマップです。</p>
-        <div class="hero-stats" aria-label="掲載情報">
-          <div><strong id="company-count">0</strong><span>掲載企業</span></div>
-          <div><strong>3</strong><span>エリア</span></div>
-          <div><strong>100%</strong><span>サンプル情報</span></div>
-        </div>
+        <h1 id="page-title">環境への一歩を、<span>地図で見つけよう。</span></h1>
+        <p class="intro-text">愛知県周辺でグリーン電力証書を活用する企業の取り組みを紹介します。ピンを選んで詳細をご覧ください。</p>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="orbit orbit-one"></div>
-        <div class="orbit orbit-two"></div>
-        <div class="leaf leaf-one">●</div>
-        <div class="leaf leaf-two">●</div>
-        <div class="hero-badge"><span>☘</span><strong>未来を選ぶ<br>企業のしるし</strong></div>
+      <div class="intro-count" aria-label="掲載企業数"><strong id="company-count">0</strong><span>掲載企業<br>（サンプル）</span></div>
+    </section>
+
+    <section class="map-section" aria-labelledby="map-heading">
+      <div class="section-heading map-heading">
+        <div>
+          <p class="eyebrow">ACTION MAP</p>
+          <h2 id="map-heading">取り組み企業を探す</h2>
+        </div>
+        <p>地図上のピンをタップすると、企業の取り組みが表示されます。</p>
+      </div>
+      <div class="map-shell">
+        <div id="map" aria-label="愛知県周辺のサンプル企業マップ"></div>
+        <div class="map-legend"><span></span> 架空のサンプル企業</div>
       </div>
     </section>
 
     <aside class="sample-notice" role="note">
       <span class="notice-icon" aria-hidden="true">i</span>
-      <p><strong>このページはデモサイトです</strong><br>掲載している企業名・所在地・取り組み内容はすべて架空のサンプルです。実在企業の導入状況を示すものではありません。</p>
+      <p><strong>このページはデモサイトです。</strong> 掲載している企業名・所在地・取り組み内容はすべて架空のサンプルで、実在企業の導入状況を示すものではありません。</p>
     </aside>
 
-    <section class="map-section" aria-labelledby="map-heading">
-      <div class="section-heading">
+    <section class="survey-demo" aria-labelledby="survey-demo-title">
+      <div class="demo-title">
+        <span class="demo-badge">デモ集計</span>
         <div>
-          <p class="eyebrow">ACTION MAP</p>
-          <h2 id="map-heading">取り組み企業を探す</h2>
+          <p id="survey-demo-title">グリーン電力証書を知っていましたか？</p>
+          <small>回答者 24人（表示例）</small>
         </div>
-        <p>地図上のピン、または企業一覧を選ぶと詳しい情報が表示されます。</p>
       </div>
-      <div class="map-shell">
-        <div id="map" aria-label="愛知県周辺のサンプル企業マップ"></div>
-        <div class="map-legend"><span></span> サンプル掲載企業</div>
+      <div class="demo-results" aria-label="アンケートのデモ集計結果">
+        <div class="result-row">
+          <span>知っていた</span><div class="bar"><i style="width: 38%"></i></div><strong>38%</strong>
+        </div>
+        <div class="result-row">
+          <span>知らなかった</span><div class="bar"><i class="light" style="width: 62%"></i></div><strong>62%</strong>
+        </div>
       </div>
+      <details class="survey-details">
+        <summary>この認知度調査について</summary>
+        <div class="details-inner">
+          <p>グリーン電力証書の認知度を知るための短いアンケートです。回答はGoogleフォームで受け付けています。</p>
+          <a href="https://forms.gle/ptjbcPwpiAbzH7Kx7" target="_blank" rel="noopener noreferrer">アンケートに回答する ↗</a>
+        </div>
+      </details>
     </section>
 
     <section class="companies-section" aria-labelledby="companies-heading">
-      <div class="section-heading compact">
+      <div class="section-heading">
         <div>
           <p class="eyebrow">FEATURED ACTIONS</p>
           <h2 id="companies-heading">企業の取り組み</h2>
         </div>
+        <p>企業カードを選ぶと、該当する場所を地図で確認できます。</p>
       </div>
       <div id="company-list" class="company-grid"></div>
     </section>

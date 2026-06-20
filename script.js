@@ -1,4 +1,4 @@
-// サンプル企業データ：この配列に同じ形式で追加すると、地図とカードに自動反映されます。
+// この配列に同じ形式で企業を追加すると、地図とカードへ自動反映されます。
 const companies = [
   {
     name: 'あおば未来テクノロジー株式会社（サンプル）',
@@ -36,7 +36,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-const markers = [];
 const companyList = document.querySelector('#company-list');
 document.querySelector('#company-count').textContent = companies.length;
 
@@ -64,7 +63,6 @@ companies.forEach((company, index) => {
   const marker = L.marker([company.lat, company.lng], { icon: pinIcon, title: company.name })
     .addTo(map)
     .bindPopup(popup);
-  markers.push(marker);
 
   const card = document.createElement('article');
   card.className = 'company-card';
@@ -83,6 +81,7 @@ companies.forEach((company, index) => {
     marker.openPopup();
     document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
+
   card.addEventListener('click', showOnMap);
   card.addEventListener('keydown', event => {
     if (event.key === 'Enter' || event.key === ' ') {
