@@ -53,29 +53,53 @@
       <p><strong>このページはデモサイトです。</strong> 掲載している企業名・所在地・取り組み内容はすべて架空のサンプルで、実在企業の導入状況を示すものではありません。</p>
     </aside>
 
-    <section class="survey-demo" aria-labelledby="survey-demo-title">
-      <div class="demo-title">
-        <span class="demo-badge">デモ集計</span>
-        <div>
-          <p id="survey-demo-title">グリーン電力証書を知っていましたか？</p>
-          <small>回答者 24人（表示例）</small>
+    <section id="survey" class="survey-live" aria-labelledby="survey-title">
+      <div class="survey-panel">
+        <div class="survey-panel-heading">
+          <span class="live-badge">30秒アンケート</span>
+          <div>
+            <p class="eyebrow">AWARENESS SURVEY</p>
+            <h2 id="survey-title">グリーン電力証書を<br class="mobile-only">知っていましたか？</h2>
+          </div>
         </div>
+
+        <form id="awareness-form">
+          <fieldset>
+            <legend class="visually-hidden">回答を1つ選んでください</legend>
+            <label class="answer-option">
+              <input type="radio" name="answer" value="知っていた" required>
+              <span><b aria-hidden="true">✓</b> 知っていた</span>
+            </label>
+            <label class="answer-option">
+              <input type="radio" name="answer" value="知らなかった" required>
+              <span><b aria-hidden="true">?</b> 知らなかった</span>
+            </label>
+          </fieldset>
+          <button id="survey-submit" class="survey-submit" type="submit">回答を送信する <span aria-hidden="true">→</span></button>
+          <p id="survey-message" class="survey-message" role="status" aria-live="polite"></p>
+        </form>
+        <p class="google-form-link">Googleフォームから回答する場合は <a href="https://forms.gle/ptjbcPwpiAbzH7Kx7" target="_blank" rel="noopener noreferrer">こちら ↗</a></p>
       </div>
-      <div class="demo-results" aria-label="アンケートのデモ集計結果">
-        <div class="result-row">
-          <span>知っていた</span><div class="bar"><i style="width: 38%"></i></div><strong>38%</strong>
+
+      <div class="results-card" aria-labelledby="results-title">
+        <div class="results-heading">
+          <div>
+            <span class="pulse-dot" aria-hidden="true"></span>
+            <h3 id="results-title">リアルタイム集計</h3>
+          </div>
+          <button id="refresh-results" type="button" aria-label="集計を再読み込み">↻</button>
         </div>
-        <div class="result-row">
-          <span>知らなかった</span><div class="bar"><i class="light" style="width: 62%"></i></div><strong>62%</strong>
+        <div class="total-result">
+          <span>現在の回答者数</span>
+          <p><strong id="total-count">--</strong><small>人</small></p>
         </div>
+        <div class="percentage-results">
+          <div><span>知っていた</span><strong id="known-percent">--%</strong></div>
+          <div><span>知らなかった</span><strong id="unknown-percent">--%</strong></div>
+        </div>
+        <small id="results-data-note" class="results-data-note" hidden>前回取得データ</small>
+        <p id="results-message" class="results-message" role="status" aria-live="polite">集計を読み込んでいます…</p>
       </div>
-      <details class="survey-details">
-        <summary>この認知度調査について</summary>
-        <div class="details-inner">
-          <p>グリーン電力証書の認知度を知るための短いアンケートです。回答はGoogleフォームで受け付けています。</p>
-          <a href="https://forms.gle/ptjbcPwpiAbzH7Kx7" target="_blank" rel="noopener noreferrer">アンケートに回答する ↗</a>
-        </div>
-      </details>
     </section>
 
     <section class="companies-section" aria-labelledby="companies-heading">
