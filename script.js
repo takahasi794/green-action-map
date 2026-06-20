@@ -137,10 +137,10 @@ function initializeLiveSurvey() {
   let latestStats = null;
 
   const endpointIsConfigured = () => (
-    typeof GAS_ENDPOINT_URL === 'string' &&
-    GAS_ENDPOINT_URL.startsWith('https://script.google.com/macros/s/') &&
-    GAS_ENDPOINT_URL.endsWith('/exec')
-  );
+  typeof GAS_ENDPOINT_URL === 'string' &&
+  GAS_ENDPOINT_URL.includes('script.google.com') &&
+  GAS_ENDPOINT_URL.endsWith('/exec')
+);
 
   const setSurveyMessage = (message, isError = false) => {
     surveyMessage.textContent = message;
