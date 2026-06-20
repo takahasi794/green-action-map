@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="愛知県周辺のグリーン電力証書導入企業を地図で紹介するサンプルサイトです。">
+  <title>Green Action Map｜グリーン電力証書 企業マップ</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Green Action Map トップへ">
+      <span class="brand-mark" aria-hidden="true">G</span>
+      <span>Green Action Map</span>
+    </a>
+    <a class="header-link" href="#about">このサイトについて</a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">GREEN POWER CERTIFICATE</p>
+        <h1>環境への一歩を、<br><span>地図で見つけよう。</span></h1>
+        <p class="hero-description">愛知県周辺でグリーン電力証書を活用する企業の取り組みを、わかりやすく紹介するマップです。</p>
+        <div class="hero-stats" aria-label="掲載情報">
+          <div><strong id="company-count">0</strong><span>掲載企業</span></div>
+          <div><strong>3</strong><span>エリア</span></div>
+          <div><strong>100%</strong><span>サンプル情報</span></div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="leaf leaf-one">●</div>
+        <div class="leaf leaf-two">●</div>
+        <div class="hero-badge"><span>☘</span><strong>未来を選ぶ<br>企業のしるし</strong></div>
+      </div>
+    </section>
+
+    <aside class="sample-notice" role="note">
+      <span class="notice-icon" aria-hidden="true">i</span>
+      <p><strong>このページはデモサイトです</strong><br>掲載している企業名・所在地・取り組み内容はすべて架空のサンプルです。実在企業の導入状況を示すものではありません。</p>
+    </aside>
+
+    <section class="map-section" aria-labelledby="map-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ACTION MAP</p>
+          <h2 id="map-heading">取り組み企業を探す</h2>
+        </div>
+        <p>地図上のピン、または企業一覧を選ぶと詳しい情報が表示されます。</p>
+      </div>
+      <div class="map-shell">
+        <div id="map" aria-label="愛知県周辺のサンプル企業マップ"></div>
+        <div class="map-legend"><span></span> サンプル掲載企業</div>
+      </div>
+    </section>
+
+    <section class="companies-section" aria-labelledby="companies-heading">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">FEATURED ACTIONS</p>
+          <h2 id="companies-heading">企業の取り組み</h2>
+        </div>
+      </div>
+      <div id="company-list" class="company-grid"></div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div>
+        <p class="eyebrow light">WHAT IS GREEN POWER?</p>
+        <h2>グリーン電力証書とは？</h2>
+      </div>
+      <p>太陽光や風力などの再生可能エネルギーが持つ「環境価値」を証書として取引する仕組みです。企業や団体が証書を購入することで、再生可能エネルギーの普及を応援できます。</p>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#top"><span class="brand-mark">G</span><span>Green Action Map</span></a>
+    <p>本サイトは学習・デモ目的で制作されたサンプルです。</p>
+    <p class="copyright">© 2026 Green Action Map</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="script.js"></script>
+</body>
+</html>
