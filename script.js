@@ -1,9 +1,9 @@
 // Apps Scriptをデプロイした後、「ウェブアプリのURL（/execで終わるURL）」に置き換えてください。
-const GAS_ENDPOINT_URL = "https://script.google.com/a/macros/m.chukyo-u.ac.jp/s/AKfycbzJy6tbzPKxjqFN7caHWHaa6ISvAu8J10NgB1hpbNTpGQxaZlWXmxu-fYaewv4gpLzv/exec";
+const GAS_ENDPOINT_URL = "ここにApps ScriptのデプロイURLを入れる";
 
 // 集計機能の安全設定（企業マップとは独立して動作します）。
 const SURVEY_CACHE_KEY = "greenActionMapSurveyStatsV1";
-const SURVEY_SUBMITTED_KEY = "greenActionMapSurveySubmittedV1";
+const SURVEY_SUBMITTED_KEY = "greenActionMapSurveySubmittedV2";
 const MIN_REFRESH_INTERVAL_MS = 30 * 1000;
 const REQUEST_TIMEOUT_MS = 12 * 1000;
 
@@ -137,10 +137,10 @@ function initializeLiveSurvey() {
   let latestStats = null;
 
   const endpointIsConfigured = () => (
-  typeof GAS_ENDPOINT_URL === 'string' &&
-  GAS_ENDPOINT_URL.includes('script.google.com') &&
-  GAS_ENDPOINT_URL.endsWith('/exec')
-);
+    typeof GAS_ENDPOINT_URL === 'string' &&
+    GAS_ENDPOINT_URL.startsWith('https://script.google.com/macros/s/') &&
+    GAS_ENDPOINT_URL.endsWith('/exec')
+  );
 
   const setSurveyMessage = (message, isError = false) => {
     surveyMessage.textContent = message;
@@ -200,17 +200,7 @@ function initializeLiveSurvey() {
     setResultsMessage('集計を読み込めませんでした', true);
   };
 
-  const fetchWithTimeout = async (url, options = {}) => {
-    const controller = new AbortController();
-    const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
-    try {
-      return await fetch(url, { ...options, signal: controller.signal });
-    } finally {
-      window.clearTimeout(timeoutId);
-    }
-  };
-
-  const requestStatsWithJsonp = url => new Promise((resolve, reject) => {
+  const requestWithJsonp = (url, parameters = {}) => new Promise((resolve, reject) => {
     const callbackName = `__greenActionMapStats_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     const script = document.createElement('script');
     let finished = false;
@@ -237,8 +227,16 @@ function initializeLiveSurvey() {
       reject(new Error('JSONP request failed'));
     };
 
+    const query = {
+      ...parameters,
+      callback: callbackName,
+      t: Date.now()
+    };
+    const queryString = Object.entries(query)
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
+      .join('&');
     const separator = url.includes('?') ? '&' : '?';
-    script.src = `${url}${separator}callback=${encodeURIComponent(callbackName)}&t=${Date.now()}`;
+    script.src = `${url}${separator}${queryString}`;
     script.async = true;
     document.head.appendChild(script);
   });
@@ -263,7 +261,7 @@ function initializeLiveSurvey() {
     setResultsMessage('集計を読み込んでいます…');
 
     try {
-      const stats = normalizeStats(await requestStatsWithJsonp(GAS_ENDPOINT_URL));
+      const stats = normalizeStats(await requestWithJsonp(GAS_ENDPOINT_URL));
       renderStats(stats, false);
       saveStats(stats);
       setResultsMessage('最新の集計です');
@@ -300,16 +298,12 @@ function initializeLiveSurvey() {
     setSurveyMessage('送信しています…');
 
     try {
-      const response = await fetchWithTimeout(GAS_ENDPOINT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-        body: JSON.stringify({ answer, userAgent: navigator.userAgent.slice(0, 500) }),
-        mode: 'no-cors',
-        cache: 'no-store',
-        redirect: 'follow'
+      const result = await requestWithJsonp(GAS_ENDPOINT_URL, {
+        action: 'submit',
+        answer,
+        userAgent: navigator.userAgent.slice(0, 500)
       });
-      // no-cors応答はopaque（内容を読めない）です。ネットワーク送信に失敗した場合はcatchへ進みます。
-      if (response.type !== 'opaque' && !response.ok) throw new Error(`HTTP ${response.status}`);
+      if (result?.ok !== true) throw new Error('Apps Script rejected the response');
 
       try { localStorage.setItem(SURVEY_SUBMITTED_KEY, 'true'); } catch (error) { console.warn(error); }
       disableAnsweredForm();
