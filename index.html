@@ -63,22 +63,13 @@
           </div>
         </div>
 
-        <form id="awareness-form">
-          <fieldset>
-            <legend class="visually-hidden">回答を1つ選んでください</legend>
-            <label class="answer-option">
-              <input type="radio" name="answer" value="知っていた" required>
-              <span><b aria-hidden="true">✓</b> 知っていた</span>
-            </label>
-            <label class="answer-option">
-              <input type="radio" name="answer" value="知らなかった" required>
-              <span><b aria-hidden="true">?</b> 知らなかった</span>
-            </label>
-          </fieldset>
-          <button id="survey-submit" class="survey-submit" type="submit">回答を送信する <span aria-hidden="true">→</span></button>
-          <p id="survey-message" class="survey-message" role="status" aria-live="polite"></p>
-        </form>
-        <p class="google-form-link">Googleフォームから回答する場合は <a href="https://forms.gle/ptjbcPwpiAbzH7Kx7" target="_blank" rel="noopener noreferrer">こちら ↗</a></p>
+        <div class="google-survey-action">
+          <p>回答はGoogleフォームで受け付けています。スマートフォンから約30秒で回答できます。</p>
+          <a class="google-form-cta" href="https://forms.gle/ptjbcPwpiAbzH7Kx7" target="_blank" rel="noopener noreferrer">
+            Googleフォームで回答する <span aria-hidden="true">↗</span>
+          </a>
+          <small>フォームは新しいタブで開きます</small>
+        </div>
       </div>
 
       <div class="results-card" aria-labelledby="results-title">

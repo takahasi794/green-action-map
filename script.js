@@ -1,9 +1,8 @@
 // Apps Scriptをデプロイした後、「ウェブアプリのURL（/execで終わるURL）」に置き換えてください。
-const GAS_ENDPOINT_URL = "https://script.google.com/a/macros/m.chukyo-u.ac.jp/s/AKfycbzJy6tbzPKxjqFN7caHWHaa6ISvAu8J10NgB1hpbNTpGQxaZlWXmxu-fYaewv4gpLzv/exec";
+const GAS_ENDPOINT_URL = "ここにApps ScriptのデプロイURLを入れる";
 
 // 集計機能の安全設定（企業マップとは独立して動作します）。
 const SURVEY_CACHE_KEY = "greenActionMapSurveyStatsV1";
-const SURVEY_SUBMITTED_KEY = "greenActionMapSurveySubmittedV2";
 const MIN_REFRESH_INTERVAL_MS = 30 * 1000;
 const REQUEST_TIMEOUT_MS = 12 * 1000;
 
@@ -119,9 +118,6 @@ try {
 }
 
 function initializeLiveSurvey() {
-  const form = document.querySelector('#awareness-form');
-  const submitButton = document.querySelector('#survey-submit');
-  const surveyMessage = document.querySelector('#survey-message');
   const refreshButton = document.querySelector('#refresh-results');
   const resultsMessage = document.querySelector('#results-message');
   const resultsDataNote = document.querySelector('#results-data-note');
@@ -129,23 +125,17 @@ function initializeLiveSurvey() {
   const knownPercent = document.querySelector('#known-percent');
   const unknownPercent = document.querySelector('#unknown-percent');
 
-  if (!form || !submitButton || !surveyMessage || !resultsMessage || !totalCount || !knownPercent || !unknownPercent) return;
+  if (!resultsMessage || !totalCount || !knownPercent || !unknownPercent) return;
 
   let lastFetchTime = 0;
   let isFetching = false;
-  let isSubmitting = false;
   let latestStats = null;
 
-const endpointIsConfigured = () => (
-  typeof GAS_ENDPOINT_URL === 'string' &&
-  GAS_ENDPOINT_URL.includes('script.google.com') &&
-  GAS_ENDPOINT_URL.endsWith('/exec')
-);
-
-  const setSurveyMessage = (message, isError = false) => {
-    surveyMessage.textContent = message;
-    surveyMessage.classList.toggle('error', isError);
-  };
+  const endpointIsConfigured = () => (
+    typeof GAS_ENDPOINT_URL === 'string' &&
+    GAS_ENDPOINT_URL.startsWith('https://script.google.com/macros/s/') &&
+    GAS_ENDPOINT_URL.endsWith('/exec')
+  );
 
   const setResultsMessage = (message, isError = false) => {
     resultsMessage.textContent = message;
@@ -200,7 +190,7 @@ const endpointIsConfigured = () => (
     setResultsMessage('集計を読み込めませんでした', true);
   };
 
-  const requestWithJsonp = (url, parameters = {}) => new Promise((resolve, reject) => {
+  const requestStatsWithJsonp = url => new Promise((resolve, reject) => {
     const callbackName = `__greenActionMapStats_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     const script = document.createElement('script');
     let finished = false;
@@ -227,11 +217,7 @@ const endpointIsConfigured = () => (
       reject(new Error('JSONP request failed'));
     };
 
-    const query = {
-      ...parameters,
-      callback: callbackName,
-      t: Date.now()
-    };
+    const query = { callback: callbackName, t: Date.now() };
     const queryString = Object.entries(query)
       .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
       .join('&');
@@ -261,7 +247,7 @@ const endpointIsConfigured = () => (
     setResultsMessage('集計を読み込んでいます…');
 
     try {
-      const stats = normalizeStats(await requestWithJsonp(GAS_ENDPOINT_URL));
+      const stats = normalizeStats(await requestStatsWithJsonp(GAS_ENDPOINT_URL));
       renderStats(stats, false);
       saveStats(stats);
       setResultsMessage('最新の集計です');
@@ -274,58 +260,7 @@ const endpointIsConfigured = () => (
     }
   };
 
-  const disableAnsweredForm = () => {
-    form.querySelectorAll('input, button').forEach(element => { element.disabled = true; });
-    setSurveyMessage('ご回答ありがとうございます');
-  };
-
-  form.addEventListener('submit', async event => {
-    event.preventDefault();
-    if (isSubmitting) return;
-
-    const answer = new FormData(form).get('answer');
-    if (answer !== '知っていた' && answer !== '知らなかった') {
-      setSurveyMessage('回答を選択してください', true);
-      return;
-    }
-    if (!endpointIsConfigured()) {
-      setSurveyMessage('送信できませんでした。時間をおいて再度お試しください', true);
-      return;
-    }
-
-    isSubmitting = true;
-    submitButton.disabled = true;
-    setSurveyMessage('送信しています…');
-
-    try {
-      const result = await requestWithJsonp(GAS_ENDPOINT_URL, {
-        action: 'submit',
-        answer,
-        userAgent: navigator.userAgent.slice(0, 500)
-      });
-      if (result?.ok !== true) throw new Error('Apps Script rejected the response');
-
-      try { localStorage.setItem(SURVEY_SUBMITTED_KEY, 'true'); } catch (error) { console.warn(error); }
-      disableAnsweredForm();
-
-      // 定期ポーリングは行わず、回答後の更新も30秒以上空けて1回だけ行います。
-      window.setTimeout(() => fetchStats(), MIN_REFRESH_INTERVAL_MS);
-    } catch (error) {
-      console.error('回答送信に失敗しました。', error);
-      setSurveyMessage('送信できませんでした。時間をおいて再度お試しください', true);
-      submitButton.disabled = false;
-    } finally {
-      isSubmitting = false;
-    }
-  });
-
   refreshButton?.addEventListener('click', () => fetchStats({ manual: true }));
-
-  try {
-    if (localStorage.getItem(SURVEY_SUBMITTED_KEY) === 'true') disableAnsweredForm();
-  } catch (error) {
-    console.warn('回答済み状態を確認できません。', error);
-  }
 
   loadCachedStats();
   fetchStats(); // 初回表示時の取得はこの1回だけです。
