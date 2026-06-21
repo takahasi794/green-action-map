@@ -39,7 +39,7 @@ h1 span { color: var(--green-700); }
 .intro-count { flex: 0 0 auto; display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 9px; line-height: 1.45; }
 .intro-count strong { color: var(--green-800); font: 700 34px/1 Outfit, sans-serif; }
 
-.map-section, .companies-section, .sample-notice, .survey-live { max-width: 1180px; margin-left: auto; margin-right: auto; }
+.map-section, .companies-section, .sample-notice { max-width: 1180px; margin-left: auto; margin-right: auto; }
 .map-section { padding-top: 8px; }
 .section-heading { display: flex; justify-content: space-between; gap: 30px; align-items: flex-end; margin-bottom: 18px; }
 .section-heading h2, .about-section h2 { margin: 0; font-size: clamp(25px, 2.7vw, 36px); letter-spacing: -.04em; line-height: 1.35; }
@@ -52,39 +52,6 @@ h1 span { color: var(--green-700); }
 .sample-notice { margin-top: 16px; padding: 13px 17px; display: flex; gap: 11px; align-items: center; background: #fff9e8; border: 1px solid #e8d9a8; border-radius: 11px; color: #625b41; }
 .sample-notice p { margin: 0; font-size: 10px; line-height: 1.6; }
 .notice-icon { flex: 0 0 auto; display: grid; place-items: center; width: 23px; height: 23px; border: 1px solid #aa9554; border-radius: 50%; font: 700 12px serif; }
-
-.survey-live { margin-top: 18px; display: grid; grid-template-columns: 1.5fr .72fr; gap: 16px; align-items: stretch; }
-.survey-panel, .results-card { border: 1px solid rgba(28,91,64,.12); border-radius: 16px; background: white; box-shadow: 0 6px 18px rgba(24,73,50,.05); }
-.survey-panel { min-height: 190px; padding: 21px 24px 16px; display: flex; flex-direction: column; }
-.survey-panel-heading { display: flex; gap: 14px; align-items: flex-start; }
-.survey-panel-heading h2 { margin: 0; font-size: 18px; line-height: 1.45; letter-spacing: -.025em; }
-.live-badge { flex: 0 0 auto; margin-top: 1px; padding: 5px 9px; color: var(--green-800); background: var(--green-100); border-radius: 99px; font-size: 9px; font-weight: 700; }
-.mobile-only { display: none; }
-.google-survey-action { margin-top: auto; padding-top: 15px; display: flex; flex-wrap: wrap; align-items: center; gap: 9px 14px; }
-.google-survey-action p { flex-basis: 100%; margin: 0; color: var(--muted); font-size: 10px; }
-.google-form-cta { min-height: 44px; padding: 10px 16px; display: inline-flex; align-items: center; gap: 12px; color: white; background: var(--green-700); border-radius: 11px; font-size: 11px; font-weight: 700; text-decoration: none; transition: background .2s, transform .2s; }
-.google-form-cta:hover, .google-form-cta:focus-visible { background: var(--green-800); transform: translateY(-1px); outline: 3px solid var(--green-200); outline-offset: 2px; }
-.google-form-cta span { font-size: 15px; }
-.google-survey-action small { color: var(--muted); font-size: 8px; }
-.results-card { padding: 19px 21px; display: flex; flex-direction: column; }
-.results-heading { display: flex; align-items: center; justify-content: space-between; }
-.results-heading > div { display: flex; align-items: center; gap: 7px; }
-.results-heading h3 { margin: 0; font-size: 12px; }
-.pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-500); box-shadow: 0 0 0 4px var(--green-100); }
-#refresh-results { display: grid; place-items: center; width: 28px; height: 28px; color: var(--green-700); background: var(--green-100); border: 0; border-radius: 50%; font-size: 15px; cursor: pointer; }
-#refresh-results:hover, #refresh-results:focus-visible { outline: 2px solid var(--green-500); }
-.total-result { margin-top: 11px; display: flex; align-items: end; justify-content: space-between; }
-.total-result > span { color: var(--muted); font-size: 9px; }
-.total-result p { margin: 0; color: var(--green-800); line-height: 1; }
-.total-result strong { font: 700 31px Outfit, sans-serif; }
-.total-result small { margin-left: 3px; font-size: 9px; }
-.percentage-results { margin-top: 12px; padding-top: 11px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 1px solid #e5ece5; }
-.percentage-results div { display: flex; flex-direction: column; }
-.percentage-results span { color: var(--muted); font-size: 8px; }
-.percentage-results strong { color: var(--green-700); font: 700 17px Outfit, sans-serif; }
-.results-data-note { width: fit-content; margin-top: 8px; padding: 2px 7px; color: #746b4c; background: #fff6d8; border-radius: 99px; font-size: 8px; font-weight: 700; }
-.results-message { min-height: 15px; margin: auto 0 0; padding-top: 7px; color: var(--muted); font-size: 8px; }
-.results-message.error { color: #a94b43; }
 
 .leaflet-popup-content-wrapper { border-radius: 15px; box-shadow: 0 8px 30px rgba(15,65,39,.22); }
 .leaflet-popup-content { width: 260px !important; margin: 18px 20px; font-family: 'Noto Sans JP', sans-serif; line-height: 1.65; }
@@ -117,14 +84,13 @@ footer { padding: 36px clamp(24px, 8vw, 130px); display: grid; grid-template-col
 footer p { margin: 0; }.copyright { grid-column: 2; }
 
 @media (max-width: 1220px) {
-  .intro, .map-section, .companies-section, .sample-notice, .survey-live { margin-left: 20px; margin-right: 20px; }
+  .intro, .map-section, .companies-section, .sample-notice { margin-left: 20px; margin-right: 20px; }
   .intro { padding-left: 0; }
 }
 
 @media (max-width: 850px) {
   .company-grid { grid-template-columns: 1fr; }
   .company-card { min-height: 225px; }
-  .survey-live { grid-template-columns: 1fr; }
   .about-section { grid-template-columns: 1fr; gap: 24px; }
 }
 
@@ -135,19 +101,12 @@ footer p { margin: 0; }.copyright { grid-column: 2; }
   .survey-kicker { font-size: 9px; }.survey-main { font-size: 13px; }
   .intro { margin: 0 18px; padding: 92px 0 15px; display: block; }
   h1 { font-size: 31px; line-height: 1.32; }.intro-text { font-size: 11px; line-height: 1.65; }.intro-count { display: none; }
-  .map-section, .companies-section, .sample-notice, .survey-live { margin-left: 14px; margin-right: 14px; }
+  .map-section, .companies-section, .sample-notice { margin-left: 14px; margin-right: 14px; }
   .section-heading { display: block; margin-bottom: 13px; }.section-heading > p { margin-top: 7px; font-size: 10px; }
   .map-heading .eyebrow { display: none; }.map-heading h2 { font-size: 21px; }
   .map-shell { border-width: 4px; border-radius: 15px; }
   #map { height: 52vh; min-height: 360px; }
   .sample-notice { align-items: flex-start; }.sample-notice p { font-size: 9px; }
-  .survey-live { gap: 11px; }
-  .survey-panel { padding: 18px 16px 14px; }
-  .survey-panel-heading { display: block; }.live-badge { display: inline-block; margin: 0 0 10px; }.mobile-only { display: block; }
-  .survey-panel-heading h2 { font-size: 17px; }
-  .google-survey-action { gap: 8px 12px; }
-  .google-form-cta { min-height: 44px; font-size: 11px; }
-  .results-card { padding: 17px; }
   .companies-section { padding-top: 58px; padding-bottom: 65px; }
   .about-section { padding-top: 56px; padding-bottom: 56px; }
   footer { display: flex; flex-direction: column; align-items: flex-start; padding: 32px 20px; }.copyright { margin-top: 8px; }
